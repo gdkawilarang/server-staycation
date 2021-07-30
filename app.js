@@ -5,23 +5,26 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const methodOverride = require("method-override");
 
-const session = require('express-session');
-const flash = require('connect-flash');
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // import mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/db_staycation", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useCreateIndex: true,
-	useFindAndModify: false,
-});
+mongoose.connect(
+	"mongodb+srv://gdkawilarang:Gdkawilarang13@cluster0.sugak.mongodb.net/db_staycation?retryWrites=true&w=majority",
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+	},
+);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 // router admin
 const adminRouter = require("./routes/admin");
-const apiRouter = require('./routes/api');
+const apiRouter = require("./routes/api");
 
 var app = express();
 
@@ -40,12 +43,14 @@ app.use(
 		path.join(__dirname, "node_modules/startbootstrap-sb-admin-2"),
 	),
 );
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: true,
-	cookie: { maxAge: 60000 }
-}))
+app.use(
+	session({
+		secret: "keyboard cat",
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: 60000 },
+	}),
+);
 app.use(flash());
 
 app.use("/", indexRouter);
